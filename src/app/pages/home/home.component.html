@@ -1,0 +1,10 @@
+<h3>New Releases on Spotify</h3>
+<app-loading *ngIf="loadin"></app-loading>
+<div class="card-columns">
+    <div (click)="verArtista(canciones)" *ngFor="let canciones of newSongs" class="card puntero">
+        <img [src]='canciones.images[0].url ' class="card-img-top" alt="imagen de artista">
+        <div class="card-body">
+            <h5 class="card-title mb-0">{{canciones.name}}</h5>
+            <span *ngFor="let artistas of canciones.artists" class="badge badge-pill badge-primary mb-2">{{artistas.name}}</span> <br>
+            <a class="btn btn-outline-success" target="_blank" [href]="canciones.external_urls.spotify">Escuhar en Spotify <i class="fab fa-spotify"></i></a>
+        </div>
