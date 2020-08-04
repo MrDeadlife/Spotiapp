@@ -11,7 +11,7 @@ import { SpotifyService } from './services/spotify.service';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    NavbarComponent
    ],
   imports: [
     BrowserModule,

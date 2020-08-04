@@ -1,29 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../../services/spotify.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-artista',
   templateUrl: './artista.component.html',
-  styleUrls: ['./artista.component.css']
+  styleUrls: ['./artista.component.css'],
 })
-export class ArtistaComponent  {
-artista:any={};
+export class ArtistaComponent implements OnInit {
+  public artist$: Observable<any>;
+  public traks$: Observable<any[]>;
 
-  constructor(private router:ActivatedRoute, private spotify:SpotifyService) {
-    this.router.params.subscribe(params=>{
-       console.log(params['id']);
-      this.getArtista(params['id']);
-    })
-   }
-   getArtista(id:string){
-    this.spotify.getArtista(id)
-        .subscribe(data=>{
-          this.artista = data;   
-          console.log(data)       
-        })
-   }
+  constructor(
+    private router: ActivatedRoute,
+    private spotify: SpotifyService
+  ) {}
 
-  
-
+  ngOnInit() {
+    this.router.params.subscribe((params) => {
+      const id = params['id'];
+      this.artist$ = this.spotify.getArtista(id);
+      this.traks$ = this.spotify.gettracks(id);
+    });
+  }
 }

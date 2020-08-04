@@ -1,12 +1,48 @@
 <div class="row">
-    <div class="col-2">
-        <img [src]="artista.images['0'].url" alt="imagen del artista" class="img-thumbnail img-circle">
-    </div>
-    <div class="col">
-        <p>{{artista.name}}</p>
-        <a [href]="artista.external_urls.spotify"></a>
-    </div>
-    <div class="col-4">
-        <button routerLink='/home' class="btn btn-outline-danger"> Ir atras</button>
-    </div>
+  <div class="col-2">
+   <img
+      [src]="(artist$ | async )?.images[0].url"
+      alt="imagen del artista"
+      class="img-thumbnail img-circle"
+    /> 
+  </div>
+  <div class="col">
+    <h1>{{ (artist$ |async)?.name }}</h1>
+    <a [href]="(artist$ |async)?.external_urls.spotify" class="btn btn-outline-success"
+      >Ir a pagina del artista <i class="fas fa-person-booth"></i
+    ></a>
+  </div> 
+  <div class="col-4">
+    <button routerLink="/home" class="btn btn-outline-success">
+      Ir atras <i class="far fa-hand-point-left"></i>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Foto</th>
+          <th>Album</th>
+          <th>Cancion</th>
+          <th>Ir</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let trak of traks$ | async " class="tbody">
+        <tr>
+          <td><img [src]="trak.album.images[2].url" alt="imagen Album" /></td>
+          <td>{{ trak.album.name }}</td>
+          <td>{{ trak.name }}</td>
+          <td>
+            <a
+              [href]="trak.external_urls.spotify"
+              class="btn btn-outline-success"
+              ><i class="fas fa-play"></i
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
